@@ -1,5 +1,6 @@
 import pyttsx3,datetime,wikipedia,webbrowser,subprocess,smtplib
 import speech_recognition as sr
+mails={'tej':'tej4april@gmail.com','gautam':'gautamkr1723@gmail.com'}
 def send_mail(send_email, password, message,rec_mail):
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
@@ -38,34 +39,42 @@ def takecommand():
 wishme()
 while True:
     query = takecommand().lower()
-    if query=="search wikipedia":
-        speak('what do you want to search')
-        topic = takecommand().lower()
-        print('Searching Wikipedia...')
-        speak('Searching Wikipedia')
-        results = wikipedia.summary(topic, sentences=2)
-        speak("Accoring to Wikipedia")
-        print(results)
-        speak(results)
-    elif query=="open youtube":
-        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
-        webbrowser.get('chrome').open_new_tab("https://youtube.com")
-    elif query=="open google":
-        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
-        webbrowser.get('chrome').open_new_tab("https://google.com")
-    elif query=="open facebook":
-        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
-        webbrowser.get('chrome').open_new_tab("https://facebook.com")
-    elif query=="execute":
-        speak("enter your command")
-        command=takecommand().lower()
-        print(subprocess.check_output(command,shell=True))
-    elif query=="send mail":
-        speak("please enter recipient mail")
-        rec=takecommand()
-        speak("enter your message")
-        msg = takecommand()
-        send_mail("tej4april@gmail.com", "thisismypassword123456noneofyourbusiness7890", msg,rec)
+    if query!="none":
+        if query=="search wikipedia":
+            speak('what do you want to search')
+            topic = takecommand().lower()
+            print('Searching Wikipedia...')
+            speak('Searching Wikipedia')
+            results = wikipedia.summary(topic, sentences=2)
+            speak("Accoring to Wikipedia")
+            print(results)
+            speak(results)
+        elif query=="open youtube":
+            chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+            webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+            webbrowser.get('chrome').open_new_tab("https://youtube.com")
+        elif query=="open google":
+            chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+            webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+            webbrowser.get('chrome').open_new_tab("https://google.com")
+        elif query=="open facebook":
+            chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+            webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+            webbrowser.get('chrome').open_new_tab("https://facebook.com")
+        elif query=="execute":
+            speak("enter your command")
+            command=takecommand().lower()
+            print(subprocess.check_output(command,shell=True))
+        elif query == "send mail":
+            speak("please enter recipient name")
+            rec=takecommand().lower()
+            if rec in mails.keys():
+                rec_mail=mails[rec]
+                speak("enter your message")
+                msg = takecommand()
+                send_mail("tej4april@gmail.com", "thisismypassword123456noneofyourbusiness7890", msg,rec_mail)
+            else:
+                speak('name not found please enter name and email to save it')
+                name=input("name >")
+                mail=input("mail >")
+                mails[name]=mail            
