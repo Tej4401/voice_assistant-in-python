@@ -1,5 +1,11 @@
-import pyttsx3,datetime,wikipedia
+import pyttsx3,datetime,wikipedia,webbrowser,subprocess,smtplib
 import speech_recognition as sr
+def send_mail(send_email, password, message,rec_mail):
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(send_email, password)
+    server.sendmail(send_email, rec_email, message)
+    server.quit()
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
@@ -41,3 +47,25 @@ while True:
         speak("Accoring to Wikipedia")
         print(results)
         speak(results)
+    elif query=="open youtube":
+        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+        webbrowser.get('chrome').open_new_tab("https://youtube.com")
+    elif query=="open google":
+        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+        webbrowser.get('chrome').open_new_tab("https://google.com")
+    elif query=="open facebook":
+        chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+        webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chrome_path))
+        webbrowser.get('chrome').open_new_tab("https://facebook.com")
+    elif query=="execute":
+        speak("enter your command")
+        command=takecommand().lower()
+        print(subprocess.check_output(command,shell=True))
+    elif query=="send mail":
+        speak("please enter recipient mail")
+        rec=takecommand()
+        speak("enter your message")
+        msg = takecommand()
+        send_mail("tej4april@gmail.com", "thisismypassword123456noneofyourbusiness7890", msg,rec)
