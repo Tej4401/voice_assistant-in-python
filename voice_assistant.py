@@ -72,7 +72,7 @@ while True:
                 rec_mail=mails[rec]
                 speak("enter your message")
                 msg = takecommand()
-                send_mail("tej4april@gmail.com", "thisismypassword123456noneofyourbusiness7890", msg,rec_mail)
+                send_mail("tej4april@gmail.com", "password", msg,rec_mail)
             else:
                 speak('name not found please enter name and email to save it')
                 name=input("name >")
